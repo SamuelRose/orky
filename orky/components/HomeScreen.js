@@ -2,19 +2,24 @@
 
 import { StyleSheet, View, Text, ImageBackground, TouchableOpacity, Pressable } from 'react-native';
 
+import * as colors from '../assets/colors.js';
+
 function HomeScreen({route, navigation})
 {
     const handleGoToCalendar = () => {
         console.log("user moved to calendar screen");
-        navigation.navigate('CalendarScreen',{});
+        today = new Date;
+        navigation.navigate('CalendarScreen',{currentDay: today});
     }
 
     return (
+      <View style={{flex:1, paddingTop:50, backgroundColor:colors.darkGray}}>
         <TouchableOpacity onPress={handleGoToCalendar} style={styles.button}>
             <Text style={styles.text}>
                 Calendar
             </Text>
         </TouchableOpacity>
+        </View>
     )
 }
 
