@@ -19,8 +19,8 @@ function CalendarScreen({route, navigation})
         '2024-02-14': [
           {name: 'first event',
            description: 'gotta go fast now this is a much longer event descriptionalskdfj\nlksdfklklksdj lkdsjfl slkjdfk',
-           startTime: "8:00",
-           endTime: "9:00"},
+           timeStamp: 1707931483000,
+           duration:3600000},
           {name: 'item 2'},
           {name: 'item 3'},{name: 'item 2'},
           {name: 'item 3'},{name: 'item 2'},
@@ -47,15 +47,26 @@ function CalendarScreen({route, navigation})
           </View>
         );
       };
+
     
     // Specify how each item should be rendered in the agenda
      const renderItems=(item, firstItemInDay) => {
+        let startTime, endTime, startAmpmString, endAmpmString;
+        if (item.timeStamp)
+        {
+          startDate = new Date(item.timeStamp);
+          endDate = new Date(item.timeStamp + item.duration);
+          startTime = startDate.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}).replace(/ AM| PM/,'') ;
+          startAmpmString = (startDate.getHours() < 12) ? "AM" : "PM";
+          endTime = endDate.toLocaleTimeString([], {hourCycle:"h12", hour:'2-digit', minute:'2-digit'}).replace(/ AM| PM/,'') ;
+          endAmpmString =  (endDate.getHours() < 12) ? "AM" : "PM";
+        }
         return (
-        <View style={[styles.item, {height: item.height, flexDirection: "row"}]}>
+        <TouchableOpacity onPress={handleEddit} style={[styles.item, {height: item.height, flexDirection: "row"}]}>
             <Text style={{color:colors.mediumGray, fontSize: 35}}>
-                {item.startTime}
+                {startTime}<Text style={{color:colors.mediumGray, fontSize: 15}}>{startAmpmString}</Text>
                 {"\n"}
-                {item.endTime}
+                {endTime}<Text style={{color:colors.mediumGray, fontSize: 15}}>{endAmpmString}</Text>
             </Text>
             <View style={{paddingLeft: 10, flex: 1}}>
                 <Text style={{color:colors.cream, fontSize: 20, fontWeight: "bold"}}>
@@ -67,7 +78,7 @@ function CalendarScreen({route, navigation})
                     </Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
         );
       }
     const renderEmptyDays = () => {
@@ -78,6 +89,11 @@ function CalendarScreen({route, navigation})
       )
 
       
+    }
+    
+    const handleEddit = () => {
+        console.log("user is entering eddit screen for event");
+        navigation.navigate('EdditEventScreen', {});
     }
 
     const handleBack = () => {
@@ -94,13 +110,16 @@ function CalendarScreen({route, navigation})
     return (
 
         <View style={{flex:1, backgroundColor: colors.mediumGray}}>
-            <View style={{flexDirection: "row", paddingTop:30, height:100, color: colors.red}}>
-                <TouchableOpacity onPress={handleBack} style={{paddingTop:20, paddingLeft:20}}>
+          <View style = {{justifyContent:'center'}}>
+            <Text style={{fontFamily: 'GillSans-UltraBold', color:colors.lavender, fontSize: 40, textAlign: 'center', paddingTop:30}}>orky</Text>
+          </View>
+            <View style={{flexDirection: "row", paddingTop:10, color: colors.red, paddingBottom:10}}>
+                <TouchableOpacity onPress={handleBack} style={{paddingTop:0, paddingLeft:20}}>
                     <Text style={{color:colors.lavender, fontSize: 20}}>
                         Back
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handleAddEvent} style={{marginLeft:'auto', paddingTop:20, paddingRight:20}}>
+                <TouchableOpacity onPress={handleAddEvent} style={{marginLeft:'auto', paddingTop:0, paddingRight:20}}>
                     <Text  style={{color:colors.lavender, fontSize: 20}}>
                         Add Event
                     </Text>

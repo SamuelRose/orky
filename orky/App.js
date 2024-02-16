@@ -6,6 +6,7 @@ import React, {useState} from 'react';
 import HomeScreen from "./components/HomeScreen.js";
 import CalendarScreen from "./components/CalendarScreen.js";
 import AddEventScreen from "./components/AddEventScreen.js";
+import EdditEventScreen from "./components/EdditEventScreen.js";
 
 
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={HomeScreen} />
         <Stack.Screen options={{headerShown: false}} name="CalendarScreen" component={CalendarScreen} />
         <Stack.Screen options={{headerShown: false}} name="AddEventScreen" component={AddEventScreen} />
+        <Stack.Screen options={{headerShown: false}} name="EdditEventScreen" component={EdditEventScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

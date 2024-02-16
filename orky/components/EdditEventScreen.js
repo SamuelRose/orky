@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, Pressable } from '
 import React, { useState } from 'react';
 import * as colors from '../assets/colors.js';
 
-function AddEventScreen({route, navigation})
+function EdditEventScreen({route, navigation})
 {
     let {currentTimeStamp} = route.params;
     let currentDay = new Date(currentTimeStamp);
@@ -30,9 +30,19 @@ function AddEventScreen({route, navigation})
         
         return true;
       }
-    
-    const handleAddEvent = () => {
-        console.log("user attempted to submit event");
+
+    const handleCancel = () => {
+        console.log("user pushed back and moved to home screen");
+        navigation.navigate('CalendarScreen',{currentTimeStamp: currentTimeStamp});
+    }
+    const handleDelete = () => {
+        console.log("user deleted event");
+        //TODO call db delete method
+        navigation.navigate('CalendarScreen',{currentTimeStamp: currentTimeStamp});
+    }
+    const handleSubmit = () => {
+        console.log("user eddited event");
+        //TODO call db delete method
         if (eventTitle.length == 0)
         {
             setTitleError("Event Title must not be empty");
@@ -40,24 +50,22 @@ function AddEventScreen({route, navigation})
         else
         {
             setTitleError("");
-            // TODO: send event to database
-            navigation.navigate('CalendarScreen',{currentTimeStamp: currentTimeStamp});
         }
-
-        
-    }
-
-    const handleBack = () => {
-        console.log("user pushed back and moved to home screen");
+        // send event to database
         navigation.navigate('CalendarScreen',{currentTimeStamp: currentTimeStamp});
     }
     
     return (
         <View style={{flex: 1}}>
-            <View style={{flex: 0, paddingTop:30, height:100, backgroundColor: colors.mediumGray}}>
-                <TouchableOpacity onPress={handleBack} style={{paddingTop:20, paddingLeft:20}}>
+            <View style={{flex: 0, flexDirection: 'row', paddingTop:30, height:100, backgroundColor: colors.mediumGray}}>
+                <TouchableOpacity onPress={handleCancel} style={{paddingTop:20, paddingLeft:20}}>
                     <Text style={{color:colors.lavender, fontSize: 20}}>
-                        Back
+                        Cancel
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleDelete} style={{marginLeft:'auto', paddingTop:20, paddingRight:20}}>
+                    <Text  style={{color:colors.lavender, fontSize: 20}}>
+                        Delete
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -107,8 +115,8 @@ function AddEventScreen({route, navigation})
                 </View>
                 <View style = {{flex:1, justifyContent: 'center'}}>
                     <TouchableOpacity>
-                        <Text  style={{color:colors.lavender, fontSize: 36, textAlign:'center'}} onPress={handleAddEvent}>
-                            Add Event
+                        <Text  style={{color:colors.lavender, fontSize: 36, textAlign:'center'}} onPress={handleSubmit}>
+                            Submit
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -118,7 +126,7 @@ function AddEventScreen({route, navigation})
     )
 }
 
-export default AddEventScreen;
+export default EdditEventScreen;
 
 const styles = StyleSheet.create({
     label: {

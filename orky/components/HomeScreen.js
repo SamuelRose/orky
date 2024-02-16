@@ -1,6 +1,6 @@
 
 
-import { StyleSheet, View, Text, ImageBackground, TouchableOpacity, Pressable } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 
 import * as colors from '../assets/colors.js';
 
@@ -15,15 +15,18 @@ function HomeScreen({route, navigation})
     }
 
     return (
-      <View style={{flex:1, paddingTop:50, backgroundColor:colors.darkGray}}>
-        <View style={{flex:7}}/>
-        <View style={{flex:1, paddingBottom:40}}>
-        <TouchableOpacity onPress={handleGoToCalendar} style={[styles.button, {marginLeft:'auto'}]}>
-            <Text style={styles.text}>
-                Calendar
-            </Text>
-        </TouchableOpacity>
+      <View style={{flex:1, backgroundColor: colors.darkGray}}>
+        <View style = {{justifyContent:'center', backgroundColor: colors.mediumGray}}>
+          <Text style={{fontFamily: 'GillSans-UltraBold', color:colors.lavender, fontSize: 40, textAlign: 'center', paddingTop:30}}>orky</Text>
         </View>
+        <View style={{flexDirection: "row", paddingTop:10, paddingBottom: 10, color: colors.red, paddingRight:20, backgroundColor: colors.mediumGray}}>
+          <TouchableOpacity onPress={handleGoToCalendar} style={{marginLeft:'auto'}}>
+              <Text  style={{color:colors.lavender, fontSize: 20}}>
+                  Calendar
+              </Text>
+          </TouchableOpacity>
+        </View>
+        
         </View>
     )
 }
