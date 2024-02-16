@@ -1,16 +1,164 @@
 
-import { StyleSheet, Text, View } from 'react-native';
-import {Agenda} from 'react-native-calendars';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Agenda, CalendarProvider, ExpandableCalendar, TimelineList} from 'react-native-calendars';
 
 import React, { Component } from 'react';
 import * as colors from '../assets/colors.js';
+import {getTheme} from './theme.js';
 
 
 
 
 function CalendarScreen({route, navigation})
 {
-    // months = ["January", "February", "March", "April", 
+    
+    const renderEmptyDay = () => {
+        return <View style={{backgroundColor:colors.mediumGray}} />;
+      };
+    
+     //returns card for empty slots.
+      const renderEmptyItem = () => {
+        return (
+          <View style={{backgroundColor:colors.mediumGray}}>
+            <Text >
+             No slots in the calendar
+            </Text>
+          </View>
+        );
+      };
+    
+    // Specify how each item should be rendered in the agenda
+     const renderItems=(item, firstItemInDay) => {
+        return (
+        <TouchableOpacity style={[styles.item, {height: item.height}]}>
+          <Text style={{color:colors.cream}}>
+            {item.name}
+          </Text>
+        </TouchableOpacity>
+        );
+      }
+    const renderEmptyDays = () => {
+      return (
+        <View>
+
+        </View>
+      )
+
+      
+    }
+
+    
+    return (
+
+        <View style={{flex:1, backgroundColor: colors.mediumGray}}>
+          <View style={{flexDirection: "row", paddingTop:30, height:100, color: colors.red}}>
+              <TouchableOpacity style={{paddingTop:20, paddingLeft:20}}>
+                <Text style={{color:colors.lavender, fontSize: 20}}>
+                Back
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{marginLeft:'auto', paddingTop:20, paddingRight:20}}>
+                <Text  style={{color:colors.lavender, fontSize: 20}}>
+                Add Event
+                </Text>
+              </TouchableOpacity>
+          </View>
+              <Agenda
+              style={{height:1000, backgroundColor:colors.mediumGray}}
+                // The list of items that have to be displayed in the Agenda
+                  items={{
+                    '2024-02-14': [],
+                    '2024-02-14': [
+                      {name: 'first event',
+                       description: 'gotta go fast',
+                       startTime: "8:00",
+                       endTime: "9:00"},
+                      {name: 'item 2'},
+                      {name: 'item 3'}]
+                  }}
+                  renderDay={renderEmptyDay}
+                  renderEmptyData={renderEmptyItem}
+                  renderItem={renderItems}
+                  scrollEnabled={false}
+                  selected={new Date().toString()} //Initially selected day
+                  hideKnob={false} // Hide knob button. Default = false
+                  showClosingKnob={true} // When `true` and `hideKnob` prop is `false`, the knob will always be visible and the user will be able to drag the knob up and close the calendar. Default = false
+                  sectionStyle={styles.section}
+                  expandableKnobColor = {colors.lavender}
+                  theme={getTheme()}
+                />
+              <View style={{paddingBottom:40}}>
+
+                </View>
+    </View>
+        
+    )
+
+    
+}
+
+
+export default CalendarScreen;
+
+const styles = StyleSheet.create({
+  item: {
+    backgroundColor: colors.darkGray,
+    flex: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginLeft: 10,
+    marginTop: 17
+  },
+  emptyDate: {
+    height: 15,
+    flex: 1,
+    paddingTop: 30
+  },
+  customDay: {
+    margin: 10,
+    fontSize: 24,
+    color: 'green'
+  },
+  dayItem: {
+    marginLeft: 34
+  },
+  section: {
+    backgroundColor: colors.mediumGray
+  }
+});
+
+// return 
+    // (
+    //   <View>
+    //   <CalendarProvider
+    //     // date={new Date()}
+    //     // // onDateChanged={this.onDateChanged}
+    //     // // onMonthChange={this.onMonthChange}
+    //     // showTodayButton
+    //     // disabledOpacity={0.6}
+    //     // // numberOfDays={3}
+    //   >
+    //     <ExpandableCalendar
+    //       // firstDay={1}
+    //       // leftArrowImageSource={require('../img/previous.png')}
+    //       // rightArrowImageSource={require('../img/next.png')}
+    //       // markedDates={this.marked}
+    //     />
+    //     <TimelineList
+    //       // events={eventsByDate}
+    //       // timelineProps={this.timelineProps}
+    //       //showNowIndicator
+    //       // scrollToNow
+    //       //scrollToFirst
+    //       //initialTime={INITIAL_TIME}
+    //     />
+    //   </CalendarProvider>
+        
+    //     </View>
+    // )
+
+// months = ["January", "February", "March", "April", 
     //     "May", "June", "July", "August", "September", "October", 
     //     "November", "December"];
 
@@ -104,74 +252,3 @@ function CalendarScreen({route, navigation})
     //         </Text> 
     //     </View>
     // )
-    const renderEmptyDay = () => {
-        return <View />;
-      };
-    
-     //returns card for empty slots.
-      const renderEmptyItem = () => {
-        return (
-            <Text >
-             No slots in the calendar
-            </Text>
-        );
-      };
-    
-    // Specify how each item should be rendered in the agenda
-     const renderItems=(item, firstItemInDay) => {
-        return <View />;
-      }
-    return (
-
-        <View style={{flex:1, paddingTop: 50}}>
-        
-            <Agenda
-            style={{height:6000}}
-// The list of items that have to be displayed in the Agenda
-  items={{
-    '2024-02-14': [{name: 'item 1'}],
-    '2022-05-23': [{name: 'item 2'}],
-    '2022-05-24': [],
-    '2022-05-25': [{name: 'item 3'}]
-  }}
-  renderDay={renderEmptyDay}
-  renderEmptyData={renderEmptyItem}
-  renderItem={renderItems}
-  scrollEnabled={false}
-  selected={new Date().toString()} //Initially selected day
-  hideKnob={false} // Hide knob button. Default = false
-  showClosingKnob // When `true` and `hideKnob` prop is `false`, the knob will always be visible and the user will be able to drag the knob up and close the calendar. Default = false
-  theme={{
-    backgroundColor: colors.darkGray,
-    calendarBackground: colors.darkGray,
-    textSectionTitleColor: colors.lavender,
-    textSectionTitleDisabledColor: '#d9e1e8',
-    selectedDayBackgroundColor: colors.cream,
-    selectedDayTextColor: colors.darkGray,
-    todayTextColor: colors.red,
-    dayTextColor: colors.lavender,
-    textDisabledColor: colors.mediumGray,
-    dotColor: colors.lavender,
-    selectedDotColor: colors.darkGray,
-    arrowColor: colors.lavender,
-    disabledArrowColor: '#d9e1e8',
-    monthTextColor: colors.lavender,
-    indicatorColor: 'blue',
-    // textDayFontFamily: 'monospace',
-    // textMonthFontFamily: 'monospace',
-    // textDayHeaderFontFamily: 'monospace',
-    textDayFontWeight: '300',
-    textMonthFontWeight: 'bold',
-    textDayHeaderFontWeight: '300',
-    textDayFontSize: 16,
-    textMonthFontSize: 16,
-    textDayHeaderFontSize: 16
-   }}
- />
- </View>
-        
-    )
-}
-
-
-export default CalendarScreen;
