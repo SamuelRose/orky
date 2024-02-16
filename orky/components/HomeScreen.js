@@ -8,17 +8,22 @@ function HomeScreen({route, navigation})
 {
     const handleGoToCalendar = () => {
         console.log("user moved to calendar screen");
-        today = new Date;
-        navigation.navigate('CalendarScreen',{currentDay: today});
+        const currentDay = new Date;
+        let timestamp = currentDay.getTime();
+        console.log("current timestamp:" + timestamp.toString());
+        navigation.navigate('CalendarScreen',{currentTimeStamp: timestamp});
     }
 
     return (
       <View style={{flex:1, paddingTop:50, backgroundColor:colors.darkGray}}>
-        <TouchableOpacity onPress={handleGoToCalendar} style={styles.button}>
+        <View style={{flex:7}}/>
+        <View style={{flex:1, paddingBottom:40}}>
+        <TouchableOpacity onPress={handleGoToCalendar} style={[styles.button, {marginLeft:'auto'}]}>
             <Text style={styles.text}>
                 Calendar
             </Text>
         </TouchableOpacity>
+        </View>
         </View>
     )
 }
@@ -54,6 +59,7 @@ const styles = StyleSheet.create({
       lineHeight: 60,
       fontWeight: 'bold',
       textAlign: 'center',
+      color:colors.lavender
     },
     textsmall: {
       color: 'black',
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
       overflow: 'hidden'
     },
     button:{
-      backgroundColor: 'rgba(255,255,255,0.3)',
+      backgroundColor: colors.mediumGray,
       borderRadius:50,
       height: 93,
       width: 316,

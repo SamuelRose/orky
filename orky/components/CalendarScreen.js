@@ -11,7 +11,8 @@ import {getTheme} from './theme.js';
 
 function CalendarScreen({route, navigation})
 {
-    let {currentDay} = route.params;
+    let {currentTimeStamp} = route.params;
+    const currentDay = new Date(currentTimeStamp);
     let [selectedDay, setSelectedDay] = useState(currentDay);
     let [eventList, setEventList] = useState({
         '2024-02-14': [],
@@ -50,7 +51,7 @@ function CalendarScreen({route, navigation})
     // Specify how each item should be rendered in the agenda
      const renderItems=(item, firstItemInDay) => {
         return (
-        <TouchableOpacity style={[styles.item, {height: item.height, flexDirection: "row"}]}>
+        <View style={[styles.item, {height: item.height, flexDirection: "row"}]}>
             <Text style={{color:colors.mediumGray, fontSize: 35}}>
                 {item.startTime}
                 {"\n"}
@@ -66,7 +67,7 @@ function CalendarScreen({route, navigation})
                     </Text>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
         );
       }
     const renderEmptyDays = () => {
@@ -86,7 +87,8 @@ function CalendarScreen({route, navigation})
 
     const handleAddEvent = () => {
         console.log("user moved to addEventScreen");
-        navigation.navigate('AddEventScreen', {selectedDay});
+        timeStamp = selectedDay.getTime();
+        navigation.navigate('AddEventScreen', {timeStamp});
     }
     
     return (
