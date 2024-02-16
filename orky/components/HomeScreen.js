@@ -1,7 +1,6 @@
 
 
 import { StyleSheet, View, Text, TouchableOpacity, Pressable, SafeAreaView } from 'react-native';
-import {Draw} from './Draw.js';
 import React, { useState, useEffect} from "react";
 
 import {
@@ -12,7 +11,6 @@ import {
 import { Canvas, Path } from "@shopify/react-native-skia";
 
 import * as colors from '../assets/colors.js';
-import { colorSelector } from '../assets/colorSelector.js';
 
 function HomeScreen({route, navigation})
 {

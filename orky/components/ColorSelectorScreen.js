@@ -13,7 +13,7 @@ function ColorSelectorScreen({route, navigation})
 
   const handleCancel = () => {
     console.log("user pushed cancel and moved to home screen");
-    navigation.navigate('HomeScreen',{});
+    navigation.navigate('HomeScreen',{color: initialColor});
   }
   const handleSelect = () => {
     console.log("user pushed select and moved to home screen " + color.toString());
