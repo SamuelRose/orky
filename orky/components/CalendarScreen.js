@@ -25,7 +25,18 @@ function CalendarScreen({route, navigation})
           {name: 'item 3'},{name: 'item 2'},
           {name: 'item 3'},{name: 'item 2'},
           {name: 'item 3'},{name: 'item 2'},
-          {name: 'item 3'}]
+          {name: 'item 3'}],
+          '2024-02-19': [
+            {name: 'It\'s Bekah\'s birthday!',
+             description: 'I love you so much cute girly, and I hope you have the most wonderful day. I love each and every year I spend with you, and I cannot wait for the next one.',
+             timeStamp: 1708318800000,
+             duration:86340000},
+            {
+                name: 'Dinner and Drinks with Storm and Naomi',
+                description: 'we gonna get turnt! its gonna be extra fun yum yum drink slurp yeeeeaaah',
+                timeStamp: 1708385400000,
+                duration: 21600000
+            }]
       });
     const renderEmptyDay = () => {
         return <View style={{backgroundColor:colors.mediumGray}} />;
@@ -87,8 +98,6 @@ function CalendarScreen({route, navigation})
 
         </View>
       )
-
-      
     }
     
     const handleEddit = () => {

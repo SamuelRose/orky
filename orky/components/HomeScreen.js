@@ -69,7 +69,7 @@ function HomeScreen({route, navigation})
       //   setStoredColor(currentColor);
       //   setCurrentColor(colors.darkGray);
       // }
-      setCurrentColor(colors.cream);
+      setCurrentColor(colors.mediumGray);
       
     }
     
